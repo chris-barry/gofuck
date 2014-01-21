@@ -20,22 +20,22 @@ func main() {
 	}
 	reader := bufio.NewReader(os.Stdin)
 	for i := 0; i < len(p); i++ {
-		switch a := string(p[i]); a {
+		switch p[i] {
 		default: fmt.Print()
-		case ">": index++
-		case "<": if index > 0 { index-- }
-		case "+": state[index]++
-		case "-": state[index]--
+		case '>': index++
+		case '<': if index > 0 { index-- }
+		case '+': state[index]++
+		case '-': state[index]--
 
-		case ".": fmt.Print(string(state[index]))
-		case ",": state[index], _ = reader.ReadByte()
+		case '.': fmt.Print(string(state[index]))
+		case ',': state[index], _ = reader.ReadByte()
 
 		// TODO: I don't think this works.
-		case "[":
+		case '[':
 			whileIndex, whileState = index, i
 			fmt.Println("HEHE")
 
-		case "]":
+		case ']':
 			fmt.Println(state[whileIndex])
 			if state[whileIndex] != 0 {
 				index = whileState
