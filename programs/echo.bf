@@ -1,6 +1,3 @@
-echos back a characer
+Echos what you type
 
-,.
-
->
-++++++++++. newline
+,[.,]
