@@ -9,8 +9,7 @@ import(
 
 var state [65535]byte
 var index = 0
-
-var whileIndex = 0
+var l = 0
 
 func main() {
 	p, err := ioutil.ReadFile(os.Args[1])
@@ -30,16 +29,31 @@ func main() {
 		case '.': fmt.Print(string(state[index]))
 		case ',': state[index], _ = reader.ReadByte()
 
-		// TODO: I don't think this works.
 		case '[':
-			whileIndex, whileState = index, i
-			fmt.Println("HEHE")
+			if state[index] == 0 {
+				i++
+				for l > 0 || p[i] != ']' {
+					if p[i] == '[' {
+						l++
+					} else if p[i] == ']' {
+						l--
+					}
+					i++
+				}
+			}
 
 		case ']':
-			fmt.Println(state[whileIndex])
-			if state[whileIndex] != 0 {
-				index = whileState
+			i--
+			for l > 0 || p[i] != '[' {
+				if p[i] == ']' {
+					l++
+				} else if p[i] == '[' {
+					l--
+				}
+				i--
 			}
+			i--
 		}
+
 	}
 }
